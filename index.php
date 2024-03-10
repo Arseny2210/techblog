@@ -1,5 +1,4 @@
 <? include 'handlers/api.php'; ?>
-<? // include 'handlers/favourites.php'; ?>
 <?php
 /*
 // Создаем новый ресурс cURL
