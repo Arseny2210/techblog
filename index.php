@@ -1,4 +1,5 @@
 <? include 'handlers/api.php'; ?>
+<? include 'handlers/actions.php'; ?>
 <?php
 /*
 // Создаем новый ресурс cURL
@@ -595,7 +596,6 @@ var_dump($data);
                                     $post = $data[$cat][$post_ind];
                                     ?>
                                     <? $url = @getimagesize($post['urlToImage']) ? $post['urlToImage'] : 'images/noimg.png' ?>
-
                                     <div class="blog-box row">
                                         <div class="col-md-4">
                                             <div class="post-media">
@@ -608,6 +608,13 @@ var_dump($data);
                                                 style='cursor: pointer;' class='btn btn-primary'>
                                                 Add to favourites
                                             </a> -->
+
+                                            <?php 
+                                            
+                                            
+                                            ?>
+
+
 
                                             <a href=""
                                                 style='cursor: pointer;' class='btn btn-primary add-favourite' data-category="<?= $cat ?>"
@@ -706,7 +713,7 @@ var_dump($data);
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
-    <script src="handlers/favourites.js"></script>
+    <script src="handlers/handler.js"></script>
 </body>
 
 </html>
