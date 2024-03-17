@@ -519,7 +519,7 @@ var_dump($data);
                         </ul>
                         <ul class="navbar-nav mr-2">
                             <li class="nav-item">
-                                <a class="nav-link" href="tech-favourites.html"><img style="filter: invert(100%);"
+                                <a class="nav-link" href="tech-favourites.php"><img style="filter: invert(100%);"
                                         src="images/icons8-favorite-folder-50.png" width="30"></a>
                             </li>
                         </ul>
@@ -596,6 +596,9 @@ var_dump($data);
                                     $post = $data[$cat][$post_ind];
                                     ?>
                                     <? $url = @getimagesize($post['urlToImage']) ? $post['urlToImage'] : 'images/noimg.png' ?>
+                                    <?php 
+                                                $is_in_favourites = array_search($post['url'], $favourite_posts,true);
+                                     ?>
                                     <div class="blog-box row">
                                         <div class="col-md-4">
                                             <div class="post-media">
@@ -609,19 +612,21 @@ var_dump($data);
                                                 Add to favourites
                                             </a> -->
 
-                                            <?php 
                                             
-                                            
-                                            ?>
 
-
-
-                                            <a href=""
-                                                style='cursor: pointer;' class='btn btn-primary add-favourite' data-category="<?= $cat ?>"
-                                                data-url = "<?= $post['url'] ?>">
-                                                Add to favourites
-
-                                            </a> 
+                                            <? if ($is_in_favourites) : ?>
+                                                <a href="" style="background:green !important;" class="btn add-favourite disabled"
+                                                data-category="<?= $cat ?>" data-url="<?= $post['url'] ?>">
+                                                In favourite ✌️
+                                                </a> 
+                                            <? else: ?>                                       
+                                            <a href="" style="cursor: pointer" class="btn btn-primary add-favourite"
+                                                data-category="<?= $cat ?>" data-url="<?= $post['url'] ?>">
+                                                Add
+                                                to
+                                                favourites
+                                            </a>
+                                            <? endif;?>
                                         </div><!-- end col -->
 
                                         <div class="blog-meta big-meta col-md-8">
