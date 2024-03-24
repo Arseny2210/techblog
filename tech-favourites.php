@@ -502,38 +502,54 @@
                 <div class="row">
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 mt-5">
                         <div class="page-wrapper">
-                            <div class="blog-top clearfix">
-                                <h4 class="pull-left">Favourites <img src="images/icons8-favorite-folder-50.png"
+                            <div class="blog-top clearfix d-flex ">
+                                <h4 class="pull-left mr-4">Favourites<img src="images/icons8-favorite-folder-50.png"
                                         width="20"></h4>
+                                <label>сортировка по дате &nbsp</label>
+                                <select name="sort" id="sort">
+                                    <option value="asc">По возрастнию</option>
+                                    <option value="desc">По убыванию</option>
+                                </select>
                             </div><!-- end blog-top -->
-                            <? var_dump($favourite_posts) ?>
                             <div class="blog-list clearfix">
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            <a href="tech-single.html" title="">
-                                                <img src="upload/tech_blog_01.jpg" alt="" class="img-fluid">
-                                                <div class="hovereffect"></div>
-                                            </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
+                                <?
+                                usort($favourite_posts, function ($a, $b) {
+                                    return strtotime($b['publishedAt']) - strtotime($a['publishedAt']);
+                                });
+                                ?>
+                                <? foreach ($favourite_posts as $post): ?>
+                                    <? $url = @getimagesize($post['urlToImage']) ? $post['urlToImage'] : 'images/no.jpg' ?>
+                                    <div class="blog-box row">
+                                        <div class="col-md-4">
+                                            <div class="post-media">
+                                                <a href="<?= $post['url']; ?>" title="">
+                                                    <img src="<?= $url ?>" alt="" class="img-fluid">
+                                                    <div class="hovereffect"></div>
+                                                </a>
+                                            </div><!-- end media -->
+                                        </div><!-- end col -->
 
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="tech-single.html" title="">Top 10 phone applications and 2017
-                                                mobile design awards</a></h4>
-                                        <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et
-                                            pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim
-                                            nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                        <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html"
-                                                title="">Gadgets</a></small>
-                                        <small><a href="tech-single.html" title="">21 July, 2017</a></small>
-                                        <small><a href="tech-author.html" title="">by Matilda</a></small>
-                                        <small><a href="tech-single.html" title=""><i class="fa fa-eye"></i>
-                                                1114</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
+                                        <div class="blog-meta big-meta col-md-8">
+                                            <h4><a href="<?= $post['url']; ?>" title="">
+                                                    <?= $post['title'] ?>
+                                                </a></h4>
+                                            <p>
+                                                <?= $post['description'] ?>
+                                            </p>
+                                            <small><a href="tech-single.html" title="">
+                                                    <? echo date('d M, Y', strtotime($post['publishedAt']));
+                                                    ?>
+                                                </a></small>
+                                            <? if ($post['author']): ?>
+                                                <small><a href="tech-author.html" title="">
+                                                        <?= $post['author'] ?>
+                                                    </a></small>
+                                            <? endif; ?>
+                                        </div><!-- end meta -->
+                                    </div><!-- end blog-box -->
 
-                                <hr class="invis">
+                                    <hr class="invis">
+                                <? endforeach; ?>
                             </div><!-- end blog-list -->
                         </div><!-- end page-wrapper -->
 
@@ -616,6 +632,7 @@
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
+    <script src="handlers/handler-favourites.js"></script>
 
 </body>
 
