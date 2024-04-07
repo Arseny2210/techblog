@@ -18,27 +18,17 @@ document.querySelector("#sort").addEventListener("change", function (e) {
           }
         });
 
-        // function isImage(url) {
-        //   fetch(url).then(resp => {
-        //     if (resp.ok === true) {
-        //       return true;
-        //     } else {
-        //       return false;
-        //     }
-        //   });
-        // }
-
         document.querySelector(".blog-list").innerHTML = "";
         let out = "";
         res.forEach(post => {
-          // const imageExists = await isImage(post.urlToImage);
-          // const url = imageExists ? post.urlToImage : "../images/no.jpg";
           const postOutput = `
           <div class="blog-box row">
             <div class="col-md-4">
                 <div class="post-media">
                     <a href="${post.url}" title="">
-                        <img src="${post.urlToImage}" alt="" class="img-fluid">
+                        <img src="${
+                          post.urlToImage || "images/no.jpg"
+                        }"  alt="Не загрузилось" class="img-fluid">
                         <div class="hovereffect"></div>
                     </a>
                 </div><!-- end media -->
@@ -52,7 +42,7 @@ document.querySelector("#sort").addEventListener("change", function (e) {
                 ${post.description}
                 </p>
                 <small><a href="tech-single.html" title="">
-                        ${new Date(post.publishedAt).toUTCString}
+                        ${new Date(post.publishedAt).toUTCString()}
                     </a></small>
                     ${
                       post.author
@@ -62,7 +52,7 @@ document.querySelector("#sort").addEventListener("change", function (e) {
             </div>
           </div>
           `;
-          out += post;
+          out += postOutput;
         });
         document
           .querySelector(".blog-list")
